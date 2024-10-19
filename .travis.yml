@@ -1,0 +1,30 @@
+# Specify the programming language (this can be generic for Docker builds)
+language: generic
+
+# Use Docker in the Travis environment
+services:
+  - docker
+
+# Environment variables for Dockerhub (These are pulled from the Travis environment variables set in the repository settings)
+env:
+  global:
+    - DOCKER_USERNAME=$DOCKER_USERNAME
+    - DOCKER_PASSWORD=$DOCKER_PASSWORD
+    - IMAGE_NAME=24800/udagram-api-feed  # Replace with your Dockerhub repo name
+
+# Steps to execute during the build process
+before_script:
+  # Log in to Dockerhub using the credentials stored in Travis environment variables
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+
+script:
+  # Build the Docker image
+  - docker build -t udagram-api-feed .
+
+  # Tag the Docker image with the latest tag
+  - docker tag udagram-api-feed 24800/udagram-api-feed:v1
+
+# Steps to run after a successful build
+after_success:
+  # Push the image to Dockerhub
+  - docker push 24800/udagram-api-feed:v1
