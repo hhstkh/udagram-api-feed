@@ -23,10 +23,7 @@ export function getGetSignedUrl( key: string ): string {
   console.log( 'aws access key id:'  + config.access_key_id);
   console.log( 'aws secret_access_key:'  + config.secret_access_key);
 
-  s3.config.update({
-    accessKeyId: config.access_key_id,
-    secretAccessKey: config.secret_access_key
-  })
+
 
   return s3.getSignedUrl('getObject', {
     Bucket: config.aws_media_bucket,
@@ -43,11 +40,7 @@ export function getPutSignedUrl( key: string ): string {
   console.log( 'aws access key id:'  + config.access_key_id);
   console.log( 'aws secret_access_key:'  + config.secret_access_key);
 
-  s3.config.update({
-    accessKeyId: config.access_key_id,
-    secretAccessKey: config.secret_access_key
-  })
-
+ 
   return s3.getSignedUrl('putObject', {
     Bucket: config.aws_media_bucket,
     Key: key,
