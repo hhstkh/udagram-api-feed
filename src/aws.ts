@@ -6,8 +6,11 @@ import {config} from './config/config';
 const credentials = new AWS.SharedIniFileCredentials({profile: config.aws_profile});
 AWS.config.credentials = credentials;
 
+
 export const s3 = new AWS.S3({
   signatureVersion: 'v4',
+  accessKeyId: config.access_key_id,
+  secretAccessKey: config.secret_access_key,
   region: config.aws_region,
   params: {Bucket: config.aws_media_bucket},
 });
@@ -18,7 +21,7 @@ export function getGetSignedUrl( key: string ): string {
 
   console.log( 'getGetSignedUrl'  + key);
   console.log( 'aws access key id:'  + config.access_key_id);
-  console.log( 'aws secret_access_key:'  + config.access_key_id);
+  console.log( 'aws secret_access_key:'  + config.secret_access_key);
 
   s3.config.update({
     accessKeyId: config.access_key_id,
@@ -38,7 +41,7 @@ export function getPutSignedUrl( key: string ): string {
 
   console.log( 'getPutSignedUrl'  + key);
   console.log( 'aws access key id:'  + config.access_key_id);
-  console.log( 'aws secret_access_key:'  + config.access_key_id);
+  console.log( 'aws secret_access_key:'  + config.secret_access_key);
 
   s3.config.update({
     accessKeyId: config.access_key_id,
