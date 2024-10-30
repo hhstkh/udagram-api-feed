@@ -22,9 +22,9 @@ script:
   - docker build -t udagram-api-feed .
 
   # Tag the Docker image with the latest tag
-  - docker tag udagram-api-feed 24800/udagram-api-feed:v3
+  - docker tag udagram-api-feed 24800/udagram-api-feed:v4
 
 # Steps to run after a successful build
 after_success:
   # Push the image to Dockerhub
-  - docker push 24800/udagram-api-feed:v3
+  - docker push 24800/udagram-api-feed:v4
